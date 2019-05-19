@@ -1,0 +1,742 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A Material Design theme for MkDocs">
+      
+      
+        <link rel="canonical" href="https://wilypratama19.github.io/Data-Mining/K-Means Clustering/">
+      
+      
+        <meta name="author" content="Martin Donath">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.2.0">
+    
+    
+      
+        <title>K-Means Clustering - Data Mining</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.750b69bd.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "None", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#k-means-clustering-in-python" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://wilypratama19.github.io/Data-Mining/" title="Data Mining" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Data Mining
+            </span>
+            <span class="md-header-nav__topic">
+              K-Means Clustering
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/wilypratama19/Data-Mining" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    squidfunk/mkdocs-material
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." title="Data Mining" class="md-tabs__link md-tabs__link--active">
+        Data Mining
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://wilypratama19.github.io/Data-Mining/" title="Data Mining" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Data Mining
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/wilypratama19/Data-Mining" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    squidfunk/mkdocs-material
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Data Mining" class="md-nav__link">
+      Data Mining
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        K-Means Clustering
+      </label>
+    
+    <a href="./" title="K-Means Clustering" class="md-nav__link md-nav__link--active">
+      K-Means Clustering
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pendahuluan" title="Pendahuluan :" class="md-nav__link">
+    Pendahuluan :
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi-data-to-fish" title="Implementasi : Data To Fish" class="md-nav__link">
+    Implementasi : Data To Fish
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../K-Nearest Neighbor/" title="K-Nearest Neighbor" class="md-nav__link">
+      K-Nearest Neighbor
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Decision Tree/" title="Decision Tree" class="md-nav__link">
+      Decision Tree
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Penulis/" title="Penulis" class="md-nav__link">
+      Penulis
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pendahuluan" title="Pendahuluan :" class="md-nav__link">
+    Pendahuluan :
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi-data-to-fish" title="Implementasi : Data To Fish" class="md-nav__link">
+    Implementasi : Data To Fish
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="k-means-clustering-in-python">K-Means Clustering in Python<a class="headerlink" href="#k-means-clustering-in-python" title="Permanent link">&para;</a></h1>
+<h4 id="pendahuluan">Pendahuluan :<a class="headerlink" href="#pendahuluan" title="Permanent link">&para;</a></h4>
+<p>Clustering pengelompokan sejumlah data atau obyek ke dalam cluster (group) sehingga dalam setiap cluster akan berisi data yang semirip mungkin. Dalam metode clustering ini berusaha untuk menempatkan obyek yang mirip (jaraknya dekat) dalam satu cluster. Dalam metode ini tidak diketahui sebelumnya berapa jumlah cluster dan bagaimana pengelompokanya (Santoso, 2007). </p>
+<p>K-Means Clustering adalah konsep yang berada di bawah Pembelajaran Tanpa Pengawasan. Algoritma ini dapat digunakan untuk menemukan grup dalam data yang tidak berlabel. Untuk mendemonstrasikan konsep ini, saya akan meninjau contoh sederhana K-Means Clustering in Python.</p>
+<p>Proses Clustering :</p>
+<ol>
+<li>Penentuan pusat Cluster Awal</li>
+<li>Perhitungan jarak dengan pusat <em>cluster</em></li>
+<li>Pengelompokan data</li>
+<li>Penentuan pusat cluster baru</li>
+<li>Ulangi langkah ke tiga, jika <em>cluster</em> masih berubah.</li>
+</ol>
+<p>Topik yang akan dibahas :</p>
+<ol>
+<li>Membuat DataFrame untuk kumpulan data dua dimensi</li>
+<li>Menemukan centroid untuk 3 cluster, dan kemudian untuk 4 cluster</li>
+<li>Menambahkan antarmuka pengguna grafis (GUI) untuk menampilkan hasilnya</li>
+</ol>
+<h4 id="implementasi-data-to-fish">Implementasi : Data To Fish<a class="headerlink" href="#implementasi-data-to-fish" title="Permanent link">&para;</a></h4>
+<p>Anda kemudian dapat mengambil data ini dalam Python menggunakan panda DataFrame:</p>
+<pre class="codehilite"><code class="language-python">from pandas import DataFrame
+
+Data = {'x': [25,34,22,27,33,33,31,22,35,34,67,54,57,43,50,57,59,52,65,47,49,48,35,33,44,45,38,43,51,46],
+        'y': [79,51,53,78,59,74,73,57,69,75,51,32,40,47,53,36,35,58,59,50,25,20,14,12,20,5,29,27,8,7]
+       }
+
+df = DataFrame(Data,columns=['x','y'])
+print (df)</code></pre>
+
+<p><strong>K-Means Clustering in Python – 3 clusters</strong> </p>
+<p>Setelah membuat DataFrame berdasarkan data di atas, Anda harus mengimpor 2 modul Python tambahan:</p>
+<ul>
+<li>
+<p>matplotlib - untuk membuat grafik dengan Python</p>
+</li>
+<li>
+<p>sklearn - untuk menerapkan K-Means Clustering dengan Python</p>
+</li>
+</ul>
+<p>Dalam kode di bawah ini, Anda dapat menentukan jumlah cluster. Untuk contoh ini, tetapkan 3 cluster sebagai berikut:</p>
+<p>KMeans (n_clusters = 3) .fit (df)</p>
+<pre class="codehilite"><code class="language-python">from pandas import DataFrame
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+Data = {'x': [25,34,22,27,33,33,31,22,35,34,67,54,57,43,50,57,59,52,65,47,49,48,35,33,44,45,38,43,51,46],
+        'y': [79,51,53,78,59,74,73,57,69,75,51,32,40,47,53,36,35,58,59,50,25,20,14,12,20,5,29,27,8,7]
+       }
+
+df = DataFrame(Data,columns=['x','y'])
+
+kmeans = KMeans(n_clusters=3).fit(df)
+centroids = kmeans.cluster_centers_
+print(centroids)
+
+plt.scatter(df['x'], df['y'], c= kmeans.labels_.astype(float), s=50, alpha=0.5)
+plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)</code></pre>
+
+<p>Jalankan kode dengan Python dan Anda akan melihat 3 cluster dengan 3 centroid berbeda:</p>
+<p><img alt="" src="../assets/images/hasil1.png" /></p>
+<p>Perhatikan bahwa pusat dari setiap kluster (berwarna merah) mewakili rata-rata semua pengamatan yang termasuk dalam kluster tersebut.</p>
+<p>Seperti yang mungkin Anda lihat, pengamatan yang dimiliki oleh kluster tertentu lebih dekat ke pusat kluster itu, dibandingkan dengan pusat kluster lainnya.</p>
+<p><strong>K-Means Clustering in Python – 4 clusters</strong> </p>
+<p>Sekarang mari kita lihat apa yang akan terjadi jika Anda menggunakan 4 cluster sebagai gantinya. Dalam hal ini, satu-satunya hal yang perlu Anda lakukan adalah mengubah n_clusters dari 3 menjadi 4:</p>
+<p>KMeans (n_clusters = 4) .fit (df)</p>
+<p>Jadi, kode Python lengkap Anda untuk 4 cluster akan terlihat seperti ini:</p>
+<pre class="codehilite"><code class="language-python">from pandas import DataFrame
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+Data = {'x': [25,34,22,27,33,33,31,22,35,34,67,54,57,43,50,57,59,52,65,47,49,48,35,33,44,45,38,43,51,46],
+        'y': [79,51,53,78,59,74,73,57,69,75,51,32,40,47,53,36,35,58,59,50,25,20,14,12,20,5,29,27,8,7]
+       }
+
+df = DataFrame(Data,columns=['x','y'])
+
+kmeans = KMeans(n_clusters=4).fit(df)
+centroids = kmeans.cluster_centers_
+print(centroids)
+
+plt.scatter(df['x'], df['y'], c= kmeans.labels_.astype(float), s=50, alpha=0.5)
+plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)</code></pre>
+
+<p>Jalankan kodenya, dan sekarang Anda akan melihat 4 cluster dengan 4 centroid berbeda:</p>
+<p><img alt="" src="../assets/images/hasil2.png" /></p>
+<p><strong>Tkinter GUI to Display the Results</strong> </p>
+<p>Anda dapat menggunakan modul tkinter dengan Python untuk menampilkan kluster pada antarmuka pengguna grafis sederhana.</p>
+<p>Ini adalah kode yang dapat Anda gunakan (untuk 3 cluster):</p>
+<pre class="codehilite"><code class="language-python">from pandas import DataFrame
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+import tkinter as tk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+Data = {'x': [25,34,22,27,33,33,31,22,35,34,67,54,57,43,50,57,59,52,65,47,49,48,35,33,44,45,38,43,51,46],
+        'y': [79,51,53,78,59,74,73,57,69,75,51,32,40,47,53,36,35,58,59,50,25,20,14,12,20,5,29,27,8,7]
+       }
+
+df = DataFrame(Data,columns=['x','y'])
+
+kmeans = KMeans(n_clusters=3).fit(df)
+centroids = kmeans.cluster_centers_
+
+root= tk.Tk()
+
+canvas1 = tk.Canvas(root, width = 100, height = 100)
+canvas1.pack()
+
+label1 = tk.Label(root, text=centroids, justify = 'center')
+canvas1.create_window(70, 50, window=label1)
+
+figure1 = plt.Figure(figsize=(5,4), dpi=100)
+ax1 = figure1.add_subplot(111)
+ax1.scatter(df['x'], df['y'], c= kmeans.labels_.astype(float), s=50, alpha=0.5)
+ax1.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)
+scatter1 = FigureCanvasTkAgg(figure1, root) 
+scatter1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
+
+root.mainloop()</code></pre>
+
+<p>Dan inilah yang akan Anda dapatkan ketika menjalankan kode dengan Python:</p>
+<p><img alt="" src="../assets/images/atas tingker.png" /></p>
+<p><strong>More Advanced Tkinter GUI</strong> </p>
+<p>Di bagian akhir tutorial ini, saya akan membagikan kode untuk membuat GUI tkinter yang lebih maju yang memungkinkan Anda untuk:</p>
+<ul>
+<li>
+<p>Mengimpor file Excel dengan kumpulan data dua dimensi</p>
+</li>
+<li>
+<p>Ketik jumlah cluster yang dibutuhkan</p>
+</li>
+<li>
+<p>Tampilkan cluster dan centroid</p>
+</li>
+</ul>
+<p>Ini kode Python lengkap:</p>
+<pre class="codehilite"><code class="language-python">import tkinter as tk
+from tkinter import filedialog
+import pandas as pd
+from pandas import DataFrame
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+root= tk.Tk()
+
+canvas1 = tk.Canvas(root, width = 400, height = 300,  relief = 'raised')
+canvas1.pack()
+
+label1 = tk.Label(root, text='k-Means Clustering')
+label1.config(font=('helvetica', 14))
+canvas1.create_window(200, 25, window=label1)
+
+label2 = tk.Label(root, text='Type Number of Clusters:')
+label2.config(font=('helvetica', 8))
+canvas1.create_window(200, 120, window=label2)
+
+entry1 = tk.Entry (root) 
+canvas1.create_window(200, 140, window=entry1)
+
+def getExcel ():
+
+    global df
+    import_file_path = filedialog.askopenfilename()
+    read_file = pd.read_excel (import_file_path)
+    df = DataFrame(read_file,columns=['x','y'])  
+
+browseButtonExcel = tk.Button(text=" Import Excel File ", command=getExcel, bg='green', fg='white', font=('helvetica', 10, 'bold'))
+canvas1.create_window(200, 70, window=browseButtonExcel)
+
+def getKMeans ():
+    global df
+    global numberOfClusters
+    numberOfClusters = int(entry1.get())
+
+    kmeans = KMeans(n_clusters=numberOfClusters).fit(df)
+    centroids = kmeans.cluster_centers_
+
+    label3 = tk.Label(root, text= centroids)
+    canvas1.create_window(200, 250, window=label3)
+
+    figure1 = plt.Figure(figsize=(4,3), dpi=100)
+    ax1 = figure1.add_subplot(111)
+    ax1.scatter(df['x'], df['y'], c= kmeans.labels_.astype(float), s=50, alpha=0.5)
+    ax1.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)
+    scatter1 = FigureCanvasTkAgg(figure1, root) 
+    scatter1.get_tk_widget().pack(side=tk.RIGHT, fill=tk.BOTH)
+
+processButton = tk.Button(text=' Process k-Means ', command=getKMeans, bg='brown', fg='white', font=('helvetica', 10, 'bold'))
+canvas1.create_window(200, 170, window=processButton)
+
+root.mainloop()</code></pre>
+
+<p>Lalu, jalankan kode Python, dan Anda akan melihat GUI berikut:</p>
+<p><img alt="" src="../assets/images/gui1.png" /></p>
+<p>Tekan tombol hijau untuk mengimpor file Excel Anda (kotak dialog akan terbuka untuk membantu Anda menemukan dan kemudian mengimpor file Excel Anda).</p>
+<p>Setelah Anda mengimpor file Excel, ketikkan jumlah cluster di kotak entri, dan kemudian klik tombol merah untuk memproses k-Means. Misalnya, saya mengetik 3 di dalam kotak entri:</p>
+<p><img alt="" src="../assets/images/gui2.png" /></p>
+<p>Dan inilah hasil yang saya dapatkan:</p>
+<p><img alt="" src="../assets/images/gui3.png" /></p>
+<p>Itu dia. Anda dapat mempelajari lebih lanjut tentang penerapan K-Means Clusters in Python dengan mengunjungi dokumentasi sklearn.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Data Mining" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Data Mining
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../K-Nearest Neighbor/" title="K-Nearest Neighbor" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                K-Nearest Neighbor
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2016 - 2019 Martin Donath
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="http://struct.cc" class="md-footer-social__link fa fa-globe"></a>
+    
+      <a href="https://github.com/wilypratama19" class="md-footer-social__link fa fa-github-alt"></a>
+    
+      <a href="https://twitter.com/wilypratama19" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://linkedin.com/in/wilypratama19" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.8c0d971c.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
